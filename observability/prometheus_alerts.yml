@@ -1,0 +1,29 @@
+groups:
+  - name: surveillance_alert_rules
+    rules:
+      - alert: CameraStreamOffline
+        expr: camera_stream_status == 0
+        for: 3m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Camera {{ $labels.camera_id }} stream offline"
+          description: "RTSP stream disconnected for > 3 minutes on gateway {{ $labels.gateway_id }}."
+
+      - alert: EdgeBufferFillingFast
+        expr: edge_disk_usage_percent > 80
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Edge Gateway {{ $labels.gateway_id }} NVMe disk capacity near limit"
+          description: "Network backlog causing local buffer accumulation above 80% threshold."
+
+      - alert: HighKafkaConsumerLag
+        expr: sum(kafka_consumergroup_lag{consumergroup="event-processor"}) > 5000
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Cloud AI Processing Lagging"
+          description: "Kafka event consumer lag exceeded 5,000 unprocessed events."

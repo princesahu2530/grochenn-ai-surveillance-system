@@ -1,0 +1,44 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Environments
+venv/
+.venv/
+env/
+
+# Environment variables & secrets
+.env
+.env.local
+*.pem
+*.key
+
+# Video & Buffer recordings (Surveillance Data)
+demo_video_buffer/
+*.mp4
+*.avi
+*.mkv
+*.h264
+*.ts
+
+# AI / ML Model Weights
+*.pt
+*.onnx
+*.engine
+*.weights
+
+# Logs
+*.log
+logs/
+
+# IDE & OS Files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise AI CCTV & Surveillance System Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0e17;
+            --card-bg: rgba(22, 28, 45, 0.7);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --primary-accent: #3b82f6;
+            --accent-cyan: #06b6d4;
+            --accent-emerald: #10b981;
+            --accent-amber: #f59e0b;
+            --accent-rose: #f43f5e;
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 40%);
+            padding: 24px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .logo-badge {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
+        }
+
+        h1 {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(90deg, #ffffff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(10, 185, 129, 0.3);
+            color: var(--accent-emerald);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-emerald);
+            box-shadow: 0 0 10px var(--accent-emerald);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(1.2); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 18px;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(59, 130, 246, 0.4);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 26px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .stat-meta {
+            font-size: 12px;
+            margin-top: 6px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .green-text { color: var(--accent-emerald); }
+        .blue-text { color: var(--accent-cyan); }
+        .amber-text { color: var(--accent-amber); }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 1024px) {
+            .main-grid { grid-template-columns: 1fr; }
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .video-container {
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--card-border);
+            position: relative;
+            background: #000;
+            min-height: 360px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .video-feed {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .overlay-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(0,0,0,0.7);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: #06b6d4;
+            border: 1px solid rgba(6, 182, 212, 0.3);
+        }
+
+        .events-table-wrapper {
+            overflow-x: auto;
+            max-height: 380px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        th {
+            text-align: left;
+            padding: 10px 12px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            border-bottom: 1px solid var(--card-border);
+            background: rgba(255,255,255,0.02);
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+
+        tr:hover {
+            background: rgba(255,255,255,0.03);
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .tag-dispatched {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--accent-emerald);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+        }
+
+        .tag-suppressed {
+            background: rgba(244, 63, 94, 0.2);
+            color: var(--accent-rose);
+            border: 1px solid rgba(244, 63, 94, 0.4);
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-accent), var(--accent-cyan));
+            width: 45%;
+            transition: width 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-area">
+            <div class="logo-badge">📹</div>
+            <div>
+                <h1>Enterprise AI CCTV & Surveillance System</h1>
+                <div class="subtitle">Production-Grade Edge AI & Cloud False Alarm Reduction Platform</div>
+            </div>
+        </div>
+        <div class="status-pill">
+            <div class="pulse-dot"></div>
+            SYSTEM OPERATIONAL (10,000 CAMERAS)
+        </div>
+    </header>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-label">Active Camera Fleet</div>
+            <div class="stat-value" id="camera-count">5,000 / 10,000</div>
+            <div class="stat-meta green-text">⚡ 24/7 Edge RTSP Ingestion</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Monthly Per-Camera Cost</div>
+            <div class="stat-value green-text">$6.38 <span style="font-size: 14px; font-weight: normal; color: var(--text-secondary);">/cam</span></div>
+            <div class="stat-meta green-text">🔻 84.6% Savings vs $41.45 Baseline</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">False Positive Filtered</div>
+            <div class="stat-value blue-text" id="filter-rate">88.5%</div>
+            <div class="stat-meta blue-text">🛡️ 4-Stage Cascade Engine</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">NVMe Buffer Disk Usage</div>
+            <div class="stat-value amber-text" id="disk-usage">42.8%</div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="disk-fill" style="width: 42.8%;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-grid">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">📹 Edge Camera Live Stream & Polygon ROI Mask (CAM_STORE_NORTH_01)</div>
+                <span class="tag tag-dispatched">5 FPS DEBOUNCED</span>
+            </div>
+            <div class="video-container">
+                <div class="overlay-badge">JETSON ORIN NANO | YOLOv8-NANO + BYTETRACK</div>
+                <img src="/api/stream_frame" alt="Live Feed" class="video-feed" id="video-stream">
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">⚡ Real-Time False Alarm Cascade Log</div>
+                <button onclick="fetchLogs()" style="background: rgba(255,255,255,0.08); border: 1px solid var(--card-border); color: #fff; padding: 4px 10px; border-radius: 6px; cursor: pointer; font-size: 12px;">Refresh Log</button>
+            </div>
+            <div class="events-table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Cam ID</th>
+                            <th>Event Type</th>
+                            <th>Confidence</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="events-body">
+                        <!-- Dynamic event rows -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateStats() {
+            fetch('/api/stats')
+                .then(r => r.json())
+                .then(data => {
+                    document.getElementById('camera-count').innerText = `${data.camera_count.toLocaleString()} / 10,000`;
+                    document.getElementById('filter-rate').innerText = `${data.false_alarm_reduction_pct}%`;
+                    document.getElementById('disk-usage').innerText = `${data.ring_buffer_disk_usage_pct.toFixed(1)}%`;
+                    document.getElementById('disk-fill').style.width = `${data.ring_buffer_disk_usage_pct}%`;
+                })
+                .catch(e => console.error(e));
+        }
+
+        function fetchLogs() {
+            fetch('/api/events')
+                .then(r => r.json())
+                .then(events => {
+                    const tbody = document.getElementById('events-body');
+                    tbody.innerHTML = '';
+                    events.forEach(ev => {
+                        const tr = document.createElement('tr');
+                        const isDispatched = ev.action === 'DISPATCHED';
+                        const tagClass = isDispatched ? 'tag-dispatched' : 'tag-suppressed';
+                        const timeStr = new Date(ev.timestamp * 1000).toLocaleTimeString();
+                        tr.innerHTML = `
+                            <td style="font-family: 'JetBrains Mono', monospace;">${timeStr}</td>
+                            <td style="font-weight: 600;">${ev.camera_id}</td>
+                            <td>${ev.event_type}</td>
+                            <td>${(ev.confidence * 100).toFixed(1)}%</td>
+                            <td><span class="tag ${tagClass}">${ev.action}</span></td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                })
+                .catch(e => console.error(e));
+        }
+
+        setInterval(() => {
+            updateStats();
+            fetchLogs();
+            // Refresh video frame stream
+            document.getElementById('video-stream').src = '/api/stream_frame?' + new Date().getTime();
+        }, 1000);
+
+        updateStats();
+        fetchLogs();
+    </script>
+</body>
+</html>
