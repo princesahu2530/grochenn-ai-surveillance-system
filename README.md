@@ -86,6 +86,7 @@ This repository contains the full production architecture, edge ingestion engine
 
 ```
 ├── README.md                           # Master Architecture & System Documentation
+├── SYSTEM_DESIGN_ANSWERS.md            # Production AI Evaluation & System Design Answers (Q2.1, Q2.2, Q2.3)
 ├── requirements.txt                    # Project Dependencies
 ├── main.py                             # End-to-End CLI Orchestrator & Pipeline Runner
 ├── dashboard.py                        # Interactive Live Monitoring Web Dashboard Server
@@ -107,6 +108,12 @@ This repository contains the full production architecture, edge ingestion engine
     ├── test_kafka_producer.py
     └── test_false_alarm_cascade.py
 ```
+
+---
+
+## 🧠 Production AI Evaluation & System Design Answers
+Detailed, metric-backed evaluation responses for AI pipeline architecture, domain degradation diagnosis, and false alarm reduction at scale:
+👉 **[View Full System Design Answers Document](SYSTEM_DESIGN_ANSWERS.md)**
 
 ---
 
