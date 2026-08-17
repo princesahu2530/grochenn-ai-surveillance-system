@@ -61,16 +61,49 @@ def index():
         return FileResponse(html_path)
     return HTMLResponse("<h1>Dashboard HTML not found</h1>")
 
+from person_intelligence.reid_face_extractor import HybridPersonIDExtractor, IdentityCentroidTracker
+from person_intelligence.vector_db_manager import VectorDBManager
+from person_intelligence.privacy_governance import PrivacyGovernanceManager
+from object_intelligence.modular_object_detector import ModularHierarchicalObjectDetector
+from object_intelligence.canary_rollout_manager import CanaryRolloutManager
+from object_intelligence.model_compression import ModelCompressionOptimizer
+
+# Instantiate Round 2 Singletons for Dashboard API
+reid_extractor = HybridPersonIDExtractor()
+centroid_tracker = IdentityCentroidTracker()
+vector_db_mgr = VectorDBManager()
+privacy_gov_mgr = PrivacyGovernanceManager()
+modular_detector = ModularHierarchicalObjectDetector()
+canary_rollout_mgr = CanaryRolloutManager()
+compression_optimizer = ModelCompressionOptimizer()
+
+# Seed default identity graph data
+reid_extractor.extract_hybrid_features(identity_hint="John_Doe")
+centroid_tracker.register_identity("ID_101", reid_extractor.extract_face_embedding(identity_hint="John_Doe"), name="John Doe")
+centroid_tracker.register_identity("ID_102", reid_extractor.extract_face_embedding(identity_hint="David_Smith"), name="David Smith")
+vector_db_mgr.insert_vector("ID_101", reid_extractor.extract_face_embedding(identity_hint="John_Doe"))
+vector_db_mgr.insert_vector("ID_102", reid_extractor.extract_face_embedding(identity_hint="David_Smith"))
+vector_db_mgr.add_hard_negative("ID_101", "ID_102")
+
+privacy_gov_mgr.audit_logger.log_access_event("ADMIN_OPERATOR_01", "VECTOR_SEARCH_QUERY", "ID_101", "Milvus 1M scale identity query executed")
+privacy_gov_mgr.audit_logger.log_access_event("SYSTEM_AUTOMATION", "HARD_NEGATIVE_ENFORCED", "ID_102", "Excluded pair (ID_101 <---> ID_102) suppressed match")
+
+canary_rollout_mgr.deploy_canary_to_customer("Customer_Retail_A")
+canary_rollout_mgr.deploy_canary_to_customer("Customer_Logistics_B")
+
 @app.get("/api/stats")
 def get_stats():
     return {
         "camera_count": 5000,
         "total_max_cameras": 10000,
         "baseline_cost_per_cam": 41.45,
-        "optimized_cost_per_cam": 6.38,
-        "cost_reduction_pct": 84.6,
+        "edge_first_cost_per_cam": 6.38,
+        "int8_motion_cost_per_cam": 1.41,
+        "cost_reduction_pct": 96.6,
         "false_alarm_reduction_pct": 88.5,
-        "ring_buffer_disk_usage_pct": 42.8 + random.uniform(-1.5, 1.5)
+        "ring_buffer_disk_usage_pct": round(42.8 + random.uniform(-1.5, 1.5), 1),
+        "identity_scale": 1000000,
+        "vector_search_latency_ms": 22.4
     }
 
 @app.get("/api/events")
@@ -90,6 +123,49 @@ def get_events():
         if len(recent_events) > 20:
             recent_events.pop()
     return recent_events[:10]
+
+@app.get("/api/round2/identities")
+def get_identities():
+    bench = vector_db_mgr.benchmark_latency_and_memory(1_000_000)
+    return {
+        "registered_identities": [
+            {"id": "ID_101", "name": "John Doe", "centroids": 2, "match_status": "VERIFIED_PRIMARY", "hard_negatives": ["ID_102"]},
+            {"id": "ID_102", "name": "David Smith", "centroids": 1, "match_status": "EXCLUDED_PAIR_REMEDIATED", "hard_negatives": ["ID_101"]}
+        ],
+        "benchmark_1M_scale": bench,
+        "quantization_type": "SQ8 uint8 (512-dim)",
+        "ram_savings_factor": "4.0x"
+    }
+
+@app.get("/api/round2/audit_logs")
+def get_audit_logs():
+    is_valid = privacy_gov_mgr.audit_logger.verify_integrity()
+    return {
+        "chain_integrity_valid": is_valid,
+        "logs": privacy_gov_mgr.audit_logger.audit_records
+    }
+
+@app.get("/api/round2/custom_classes")
+def get_custom_classes():
+    return {
+        "coarse_super_classes": modular_detector.coarse_detector.SUPER_CLASSES,
+        "registered_custom_classes": list(modular_detector.metric_retriever.class_registry.keys()),
+        "zero_downtime_registration_time_hrs": "< 2.0"
+    }
+
+@app.get("/api/round2/canary_flags")
+def get_canary_flags():
+    ab_report = canary_rollout_mgr.ab_evaluator.generate_ab_report()
+    return {
+        "tenant_configs": canary_rollout_mgr.router.tenant_configs,
+        "ab_test_metrics": ab_report,
+        "instant_rollback_history": canary_rollout_mgr.rollback_engine.rollback_history
+    }
+
+@app.get("/api/round2/compression_stats")
+def get_compression_stats():
+    return compression_optimizer.calculate_cost_reduction_matrix(5000)
+
 
 @app.get("/api/stream_frame")
 def get_stream_frame():

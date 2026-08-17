@@ -3,18 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enterprise AI CCTV & Surveillance System Dashboard</title>
+    <title>Enterprise AI CCTV & Surveillance System | Technical Leadership Platform (R1 & R2)</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-dark: #0a0e17;
-            --card-bg: rgba(22, 28, 45, 0.7);
+            --card-bg: rgba(22, 28, 45, 0.75);
             --card-border: rgba(255, 255, 255, 0.08);
             --primary-accent: #3b82f6;
             --accent-cyan: #06b6d4;
             --accent-emerald: #10b981;
             --accent-amber: #f59e0b;
             --accent-rose: #f43f5e;
+            --accent-purple: #8b5cf6;
             --text-primary: #f3f4f6;
             --text-secondary: #9ca3af;
         }
@@ -32,7 +33,7 @@
             min-height: 100vh;
             background-image: 
                 radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.12) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 40%);
+                radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.12) 0%, transparent 40%);
             padding: 24px;
         }
 
@@ -40,7 +41,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
             padding-bottom: 16px;
             border-bottom: 1px solid var(--card-border);
         }
@@ -52,22 +53,22 @@
         }
 
         .logo-badge {
-            width: 44px;
-            height: 44px;
-            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            width: 46px;
+            height: 46px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 22px;
-            box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
+            font-size: 24px;
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
         }
 
         h1 {
             font-size: 22px;
             font-weight: 700;
             letter-spacing: -0.5px;
-            background: linear-gradient(90deg, #ffffff, #94a3b8);
+            background: linear-gradient(90deg, #ffffff, #cbd5e1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -105,11 +106,49 @@
             100% { opacity: 1; transform: scale(1); }
         }
 
+        /* Top Navigation Tabs */
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 10px;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--card-border);
+            color: var(--text-secondary);
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .tab-btn:hover, .tab-btn.active {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.25), rgba(139, 92, 246, 0.25));
+            border-color: var(--primary-accent);
+            color: #fff;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
             gap: 16px;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
 
         .stat-card {
@@ -123,19 +162,19 @@
 
         .stat-card:hover {
             transform: translateY(-2px);
-            border-color: rgba(59, 130, 246, 0.4);
+            border-color: rgba(139, 92, 246, 0.4);
         }
 
         .stat-label {
-            font-size: 12px;
+            font-size: 11px;
             color: var(--text-secondary);
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .stat-value {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 700;
             color: #fff;
         }
@@ -151,6 +190,7 @@
         .green-text { color: var(--accent-emerald); }
         .blue-text { color: var(--accent-cyan); }
         .amber-text { color: var(--accent-amber); }
+        .purple-text { color: var(--accent-purple); }
 
         .main-grid {
             display: grid;
@@ -168,6 +208,7 @@
             border: 1px solid var(--card-border);
             border-radius: 16px;
             padding: 20px;
+            margin-bottom: 20px;
         }
 
         .card-header {
@@ -178,7 +219,7 @@
         }
 
         .card-title {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
             display: flex;
             align-items: center;
@@ -192,7 +233,7 @@
             border: 1px solid var(--card-border);
             position: relative;
             background: #000;
-            min-height: 360px;
+            min-height: 340px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -208,7 +249,7 @@
             position: absolute;
             top: 12px;
             left: 12px;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.75);
             padding: 4px 10px;
             border-radius: 6px;
             font-family: 'JetBrains Mono', monospace;
@@ -267,18 +308,24 @@
             border: 1px solid rgba(244, 63, 94, 0.4);
         }
 
+        .tag-purple {
+            background: rgba(139, 92, 246, 0.2);
+            color: var(--accent-purple);
+            border: 1px solid rgba(139, 92, 246, 0.4);
+        }
+
         .progress-bar-bg {
             width: 100%;
             height: 8px;
             background: rgba(255,255,255,0.1);
             border-radius: 4px;
             overflow: hidden;
-            margin-top: 10px;
+            margin-top: 8px;
         }
 
         .progress-bar-fill {
             height: 100%;
-            background: linear-gradient(90deg, var(--primary-accent), var(--accent-cyan));
+            background: linear-gradient(90deg, var(--primary-accent), var(--accent-purple));
             width: 45%;
             transition: width 0.5s ease;
         }
@@ -290,87 +337,213 @@
             <div class="logo-badge">📹</div>
             <div>
                 <h1>Enterprise AI CCTV & Surveillance System</h1>
-                <div class="subtitle">Production-Grade Edge AI & Cloud False Alarm Reduction Platform</div>
+                <div class="subtitle">Technical Leadership Systems (R1 Edge Ring Buffer + R2 Person ReID & Asset Intelligence)</div>
             </div>
         </div>
         <div class="status-pill">
             <div class="pulse-dot"></div>
-            SYSTEM OPERATIONAL (10,000 CAMERAS)
+            10,000 CAMERAS OPERATIONAL
         </div>
     </header>
 
+    <!-- Top Navigation Tabs -->
+    <div class="nav-tabs">
+        <button class="tab-btn active" onclick="switchTab('tab-live')">📹 Live Stream & Edge Cascade (R1)</button>
+        <button class="tab-btn" onclick="switchTab('tab-identity')">👤 Identity Graph & Vector Search (PS3)</button>
+        <button class="tab-btn" onclick="switchTab('tab-privacy')">🛡️ Privacy Audit & RTBF (PS3.2)</button>
+        <button class="tab-btn" onclick="switchTab('tab-objects')">📦 Modular Asset Recognition (PS4)</button>
+        <button class="tab-btn" onclick="switchTab('tab-canary')">🚩 Canary Rollout & Feature Flags (PS4.2)</button>
+        <button class="tab-btn" onclick="switchTab('tab-compression')">⚡ INT8 Compression & Cost (PS4.3)</button>
+    </div>
+
+    <!-- STATS MATRIX -->
     <div class="stats-grid">
         <div class="stat-card">
-            <div class="stat-label">Active Camera Fleet</div>
+            <div class="stat-label">Active Fleet Scale</div>
             <div class="stat-value" id="camera-count">5,000 / 10,000</div>
-            <div class="stat-meta green-text">⚡ 24/7 Edge RTSP Ingestion</div>
+            <div class="stat-meta green-text">⚡ 24/7 NVMe Ring Buffer</div>
         </div>
         <div class="stat-card">
-            <div class="stat-label">Monthly Per-Camera Cost</div>
-            <div class="stat-value green-text">$6.38 <span style="font-size: 14px; font-weight: normal; color: var(--text-secondary);">/cam</span></div>
-            <div class="stat-meta green-text">🔻 84.6% Savings vs $41.45 Baseline</div>
+            <div class="stat-label">Monthly Cloud GPU Cost</div>
+            <div class="stat-value green-text" id="cost-display">$1.41 <span style="font-size: 12px; font-weight: normal; color: var(--text-secondary);">/cam/mo</span></div>
+            <div class="stat-meta green-text">🔻 96.6% Savings vs $41.45 Baseline</div>
         </div>
         <div class="stat-card">
-            <div class="stat-label">False Positive Filtered</div>
+            <div class="stat-label">False Alarm Suppressed</div>
             <div class="stat-value blue-text" id="filter-rate">88.5%</div>
-            <div class="stat-meta blue-text">🛡️ 4-Stage Cascade Engine</div>
+            <div class="stat-meta blue-text">🛡️ 4-Stage Cloud Cascade</div>
         </div>
         <div class="stat-card">
-            <div class="stat-label">NVMe Buffer Disk Usage</div>
-            <div class="stat-value amber-text" id="disk-usage">42.8%</div>
-            <div class="progress-bar-bg">
-                <div class="progress-bar-fill" id="disk-fill" style="width: 42.8%;"></div>
+            <div class="stat-label">1M Vector Query Latency</div>
+            <div class="stat-value purple-text" id="vector-lat">22.4 ms</div>
+            <div class="stat-meta purple-text">⚡ Milvus HNSW SQ8 Index</div>
+        </div>
+    </div>
+
+    <!-- TAB 1: LIVE STREAM & EDGE CASCADE -->
+    <div id="tab-live" class="tab-content active">
+        <div class="main-grid">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">📹 Edge Camera Live Stream & Polygon ROI Mask (CAM_STORE_NORTH_01)</div>
+                    <span class="tag tag-dispatched">5 FPS DEBOUNCED</span>
+                </div>
+                <div class="video-container">
+                    <div class="overlay-badge">JETSON ORIN NANO | YOLOv8-NANO + BYTETRACK</div>
+                    <img src="/api/stream_frame" alt="Live Feed" class="video-feed" id="video-stream">
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">⚡ Real-Time False Alarm Cascade Log</div>
+                    <button onclick="fetchLogs()" style="background: rgba(255,255,255,0.08); border: 1px solid var(--card-border); color: #fff; padding: 4px 10px; border-radius: 6px; cursor: pointer; font-size: 12px;">Refresh Log</button>
+                </div>
+                <div class="events-table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Cam ID</th>
+                                <th>Event Type</th>
+                                <th>Confidence</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="events-body"></tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="main-grid">
+    <!-- TAB 2: IDENTITY INTELLIGENCE & VECTOR SEARCH -->
+    <div id="tab-identity" class="tab-content">
         <div class="card">
             <div class="card-header">
-                <div class="card-title">📹 Edge Camera Live Stream & Polygon ROI Mask (CAM_STORE_NORTH_01)</div>
-                <span class="tag tag-dispatched">5 FPS DEBOUNCED</span>
-            </div>
-            <div class="video-container">
-                <div class="overlay-badge">JETSON ORIN NANO | YOLOv8-NANO + BYTETRACK</div>
-                <img src="/api/stream_frame" alt="Live Feed" class="video-feed" id="video-stream">
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">⚡ Real-Time False Alarm Cascade Log</div>
-                <button onclick="fetchLogs()" style="background: rgba(255,255,255,0.08); border: 1px solid var(--card-border); color: #fff; padding: 4px 10px; border-radius: 6px; cursor: pointer; font-size: 12px;">Refresh Log</button>
+                <div class="card-title">👤 Identity Graph & Hard Negative Blacklist Remediation (John vs David FP Case)</div>
+                <span class="tag tag-purple">1M VECTOR DB SIMULATOR</span>
             </div>
             <div class="events-table-wrapper">
                 <table>
                     <thead>
                         <tr>
-                            <th>Time</th>
-                            <th>Cam ID</th>
-                            <th>Event Type</th>
-                            <th>Confidence</th>
-                            <th>Action</th>
+                            <th>Identity ID</th>
+                            <th>Name</th>
+                            <th>EMA Centroids</th>
+                            <th>Match Status</th>
+                            <th>Hard Negative Exclusions</th>
                         </tr>
                     </thead>
-                    <tbody id="events-body">
-                        <!-- Dynamic event rows -->
-                    </tbody>
+                    <tbody id="identity-body"></tbody>
+                </table>
+            </div>
+            <div style="margin-top: 16px; padding: 14px; background: rgba(59,130,246,0.1); border-radius: 10px; font-size: 13px;">
+                <strong>⚡ 1 Million Identity Vector Latency Benchmark:</strong>
+                <span id="bench-details">Loading benchmark...</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 3: PRIVACY AUDIT & RTBF -->
+    <div id="tab-privacy" class="tab-content">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">🛡️ Immutable ClickHouse Cryptographic Audit Trail (`surveillance.audit.access`)</div>
+                <span class="tag tag-dispatched" id="audit-integrity-tag">SHA-256 CHAIN VALID</span>
+            </div>
+            <div class="events-table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Record ID</th>
+                            <th>Operator</th>
+                            <th>Action</th>
+                            <th>Target ID</th>
+                            <th>Details</th>
+                            <th>Block Hash (SHA-256)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="audit-body"></tbody>
                 </table>
             </div>
         </div>
     </div>
 
+    <!-- TAB 4: MODULAR ASSET RECOGNITION -->
+    <div id="tab-objects" class="tab-content">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">📦 Hierarchical Modular Asset Detector & Zero-Downtime Class Registry</div>
+                <span class="tag tag-dispatched">&lt; 2 HR ONBOARDING</span>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                <div>
+                    <h4 style="margin-bottom: 8px; color: var(--accent-cyan);">Coarse YOLOv8 Super-Classes (Stage 1)</h4>
+                    <ul id="coarse-list" style="list-style: none; font-size: 13px;"></ul>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 8px; color: var(--accent-emerald);">Registered Fine Custom Classes (Stage 2 Open-Set Metric)</h4>
+                    <ul id="custom-list" style="list-style: none; font-size: 13px;"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 5: CANARY ROLLOUT & FEATURE FLAGS -->
+    <div id="tab-canary" class="tab-content">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">🚩 Dynamic Feature Flag Router & Instant 5-Second Rollback Engine</div>
+                <span class="tag tag-suppressed">5-SEC ROLLBACK READY</span>
+            </div>
+            <div class="events-table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Customer Tenant ID</th>
+                            <th>Assigned Model Version</th>
+                            <th>Canary Status</th>
+                            <th>Last Updated</th>
+                        </tr>
+                    </thead>
+                    <tbody id="canary-body"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 6: INT8 COMPRESSION & COST OPTIMIZATION -->
+    <div id="tab-compression" class="tab-content">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">⚡ Model Compression Matrix (INT8 Quantization + MOG2 Motion Skip)</div>
+                <span class="tag tag-dispatched">68% GPU COST REDUCTION</span>
+            </div>
+            <div id="compression-matrix-view" style="font-size: 14px; line-height: 1.8;">
+                Loading matrix...
+            </div>
+        </div>
+    </div>
+
     <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
         function updateStats() {
             fetch('/api/stats')
                 .then(r => r.json())
                 .then(data => {
                     document.getElementById('camera-count').innerText = `${data.camera_count.toLocaleString()} / 10,000`;
                     document.getElementById('filter-rate').innerText = `${data.false_alarm_reduction_pct}%`;
-                    document.getElementById('disk-usage').innerText = `${data.ring_buffer_disk_usage_pct.toFixed(1)}%`;
-                    document.getElementById('disk-fill').style.width = `${data.ring_buffer_disk_usage_pct}%`;
-                })
-                .catch(e => console.error(e));
+                    document.getElementById('vector-lat').innerText = `${data.vector_search_latency_ms} ms`;
+                    document.getElementById('cost-display').innerHTML = `$${data.int8_motion_cost_per_cam} <span style="font-size: 12px; font-weight: normal; color: var(--text-secondary);">/cam/mo</span>`;
+                }).catch(e => console.error(e));
         }
 
         function fetchLogs() {
@@ -393,19 +566,115 @@
                         `;
                         tbody.appendChild(tr);
                     });
-                })
-                .catch(e => console.error(e));
+                }).catch(e => console.error(e));
+        }
+
+        function fetchRound2Data() {
+            // Identities
+            fetch('/api/round2/identities')
+                .then(r => r.json())
+                .then(data => {
+                    const tbody = document.getElementById('identity-body');
+                    tbody.innerHTML = '';
+                    data.registered_identities.forEach(id => {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td style="font-family: 'JetBrains Mono', monospace;">${id.id}</td>
+                            <td style="font-weight: 600;">${id.name}</td>
+                            <td>${id.centroids} prototypes</td>
+                            <td><span class="tag tag-dispatched">${id.match_status}</span></td>
+                            <td style="color: var(--accent-rose);">EXCLUDE(${id.hard_negatives.join(', ')})</td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                    const b = data.benchmark_1M_scale;
+                    document.getElementById('bench-details').innerText = `1M Scale Latency: ${b.latency_ms}ms | SQ8 Quantized RAM: ${b.sq8_quantized_mb} MB (${b.ram_savings_factor}x savings)`;
+                }).catch(e => console.error(e));
+
+            // Audit Logs
+            fetch('/api/round2/audit_logs')
+                .then(r => r.json())
+                .then(data => {
+                    const tbody = document.getElementById('audit-body');
+                    tbody.innerHTML = '';
+                    data.logs.forEach(l => {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td style="font-family: 'JetBrains Mono', monospace;">${l.record_id}</td>
+                            <td style="font-weight: 600;">${l.operator_id}</td>
+                            <td><span class="tag tag-purple">${l.action}</span></td>
+                            <td>${l.target_identity_id}</td>
+                            <td>${l.details}</td>
+                            <td style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent-cyan);">${l.block_hash.substring(0, 16)}...</td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                }).catch(e => console.error(e));
+
+            // Custom Classes
+            fetch('/api/round2/custom_classes')
+                .then(r => r.json())
+                .then(data => {
+                    const cList = document.getElementById('coarse-list');
+                    cList.innerHTML = data.coarse_super_classes.map(c => `<li style="padding: 4px 0; color: var(--text-primary);">• ${c}</li>`).join('');
+                    const fList = document.getElementById('custom-list');
+                    fList.innerHTML = data.registered_custom_classes.map(f => `<li style="padding: 4px 0; color: var(--accent-emerald);">✓ ${f}</li>`).join('');
+                }).catch(e => console.error(e));
+
+            // Canary Flags
+            fetch('/api/round2/canary_flags')
+                .then(r => r.json())
+                .then(data => {
+                    const tbody = document.getElementById('canary-body');
+                    tbody.innerHTML = '';
+                    for (const [cust, cfg] of Object.entries(data.tenant_configs)) {
+                        const tr = document.createElement('tr');
+                        const tagClass = cfg.canary_enabled ? 'tag-purple' : 'tag-dispatched';
+                        tr.innerHTML = `
+                            <td style="font-weight: 600;">${cust}</td>
+                            <td style="font-family: 'JetBrains Mono', monospace;">${cfg.model_version}</td>
+                            <td><span class="tag ${tagClass}">${cfg.canary_enabled ? 'CANARY ENABLED' : 'BASELINE STABLE'}</span></td>
+                            <td>${new Date(cfg.last_updated * 1000).toLocaleTimeString()}</td>
+                        `;
+                        tbody.appendChild(tr);
+                    }
+                }).catch(e => console.error(e));
+
+            // Compression Stats
+            fetch('/api/round2/compression_stats')
+                .then(r => r.json())
+                .then(d => {
+                    document.getElementById('compression-matrix-view').innerHTML = `
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 10px;">
+                            <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px;">
+                                <div style="color: var(--text-secondary); font-size: 12px;">Baseline Cloud GPU Cost</div>
+                                <div style="font-size: 20px; font-weight: bold; color: var(--accent-rose);">$${d.baseline_gpu_cost_per_cam} / cam / mo</div>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px;">
+                                <div style="color: var(--text-secondary); font-size: 12px;">INT8 Quantized Cost</div>
+                                <div style="font-size: 20px; font-weight: bold; color: var(--accent-amber);">$${d.int8_quantized_cost_per_cam} / cam / mo</div>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px;">
+                                <div style="color: var(--text-secondary); font-size: 12px;">Final INT8 + Motion Skip Cost</div>
+                                <div style="font-size: 20px; font-weight: bold; color: var(--accent-emerald);">$${d.final_optimized_cost_per_cam} / cam / mo</div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 14px; color: var(--accent-cyan);">
+                            ⚡ <strong>Monthly Fleet Savings (5,000 Cameras):</strong> $${d.monthly_fleet_savings_usd.toLocaleString()} USD (${d.total_cost_reduction_pct}% cost reduction)
+                        </div>
+                    `;
+                }).catch(e => console.error(e));
         }
 
         setInterval(() => {
             updateStats();
             fetchLogs();
-            // Refresh video frame stream
             document.getElementById('video-stream').src = '/api/stream_frame?' + new Date().getTime();
         }, 1000);
 
         updateStats();
         fetchLogs();
+        fetchRound2Data();
     </script>
 </body>
 </html>
